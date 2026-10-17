@@ -1,0 +1,13 @@
+runtime/
+ci-qa/
+purpur.jar
+smoke-report.json
+integrity-report.json
+**/__pycache__/
+*.db
+*.db-wal
+*.db-shm
+*.key
+*.pem
+*.secret
+.env
