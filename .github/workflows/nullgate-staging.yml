@@ -65,6 +65,16 @@ jobs:
             'https://api.purpurmc.org/v2/purpur/1.21.11/2568/download' --output purpur.jar
           unzip -tqq purpur.jar
           sha256sum purpur.jar
+      - name: Install verified PacketEvents Spigot 2.13.0
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p test-assets/dependencies
+          curl --fail --location --show-error --retry 3 --max-time 120 \
+            'https://github.com/retrooper/packetevents/releases/download/v2.13.0/packetevents-spigot-2.13.0.jar' \
+            --output test-assets/dependencies/packetevents-spigot-2.13.0.jar
+          echo '6d9ece0d87ee727a79a20b7ffbd432021609c6f52bafcb654fc2d3e9b6f064c5  test-assets/dependencies/packetevents-spigot-2.13.0.jar' | sha256sum --check --status
+          unzip -tqq test-assets/dependencies/packetevents-spigot-2.13.0.jar
       - name: Launch disposable loopback-only server
         run: python3 scripts/smoke.py --server purpur.jar --runtime runtime --max-wait 240 --soak 60
       - name: Retain startup evidence
